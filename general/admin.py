@@ -10,8 +10,8 @@ from general.models import (
 )
 from django.contrib.auth.models import Group
 from general.filters import AuthorFilter, PostFilter
-from django_admin_listfilter_dropdown import ChoiceDropdownFilter
-
+#from django_admin_listfilter_dropdown import ChoiceDropdownFilter
+from django_admin_listfilter_dropdown.filters import ChoiceDropdownFilter
 
 admin.site.unregister(Group)
 
@@ -48,10 +48,10 @@ class UserModelAdmin(admin.ModelAdmin):
         ("date_joined", DateRangeFilter),
     )
 
-    autocomplete_fields = (
-        'author',
-        'post',
-    )
+    # autocomplete_fields = (
+    #     'author',
+    #     'post',
+    # )
 
     fieldsets = (
         (
@@ -120,10 +120,10 @@ class PostModelAdmin(admin.ModelAdmin):
         "title",
     )
 
-    autocomplete_fields = (
-        'author',
-        'title',
-    )
+    # autocomplete_fields = (
+    #     'author',
+    #     'title',
+    # )
 
     list_filter = (
         ("created_at", DateRangeFilter),
