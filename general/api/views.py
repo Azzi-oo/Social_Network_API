@@ -1,6 +1,24 @@
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, DestroyModelMixin
-from general.api.serializers import UserRegistrationSerializer, UserListSerializer, UserRetrieveSerializer, PostListSerializer, PostRetrieveSerializer, PostCreateUpdateSerializer, CommentSerializer, ReactionSerializer, ChatSerializer, MessageListSerializer, ChatListSerializer, MessageSerializer
+from rest_framework.mixins import (
+    CreateModelMixin,
+    ListModelMixin,
+    RetrieveModelMixin,
+    DestroyModelMixin,
+)
+from general.api.serializers import (
+    UserRegistrationSerializer,
+    UserListSerializer,
+    UserRetrieveSerializer,
+    PostListSerializer,
+    PostRetrieveSerializer,
+    PostCreateUpdateSerializer,
+    CommentSerializer,
+    ReactionSerializer,
+    ChatSerializer,
+    MessageListSerializer,
+    ChatListSerializer,
+    MessageSerializer,
+)
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from general.models import User, Post, Comment, Reaction, Chat, Message
@@ -54,13 +72,13 @@ class UserViewSet(
         user = self.get_object()
         request.user.friends.add(user)
         return Response("Friend added")
-    
+
     @action(detail=True, methods=["post"])
     def remove_friend(self, request, pk=None):
         user = self.get_object()
         request.user.friends.remove(user)
         return Response("Friend removed")
-    
+
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all().order_by("-id")

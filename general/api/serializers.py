@@ -153,7 +153,7 @@ class CommentSerializer(serializers.ModelSerializer):
         return fields
 
     class Meta:
-        model = Comment 
+        model = Comment
         fields = (
             "id",
             "author",
@@ -201,7 +201,7 @@ class ChatSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = Chat 
+        model = Chat
         fields = ("user_1", "user_2")
 
     def create(self, validated_data):
@@ -218,7 +218,7 @@ class ChatSerializer(serializers.ModelSerializer):
                 user_2=second_user,
             )
         return chat
-    
+
 
 class MessageListSerializer(serializers.ModelSerializer):
     message_author = serializers.CharField()
@@ -244,7 +244,7 @@ class ChatListSerializer(serializers.ModelSerializer):
 
     def get_last_message_content(self, obj) -> str:
         return obj.last_message_content
-    
+
     def get_companion_name(self, obj) -> str:
         companion = obj.user_1 if obj.user_2 == self.context["request"].user else obj.user_2
         return f"{companion.first_name} {companion.last_name}"
@@ -261,9 +261,7 @@ class MessageSerializer(serializers.ModelSerializer):
         if chat.user_1 != author and chat.user_2 != author:
             raise serializers.ValidationError("Вы не являетесь участником этого чата")
         return super().validate(attrs)
-    
+
     class Meta:
         model = Message
         fields = ("id", "author", "content", "chat", "created_at")
-
-    
