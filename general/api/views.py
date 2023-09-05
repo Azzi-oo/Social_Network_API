@@ -57,7 +57,7 @@ class UserViewSet(
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
-    
+
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -145,7 +145,7 @@ class ChatViewSet(
         if self.action == "messages":
             return MessageListSerializer
         return ChatSerializer
-    
+
     def get_queryset(self):
         user = self.request.user
 
