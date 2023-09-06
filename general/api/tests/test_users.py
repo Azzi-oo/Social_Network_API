@@ -66,7 +66,7 @@ class UserTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         created_user = User.objects.last()
-        self.assertTrue(check_password(data["password"], created_user.password))
+        self.assertTrue(check_password(data["password"],created_user.password))
         data.pop("password")
 
         user_data = {

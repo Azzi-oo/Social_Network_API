@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase
-from general.factories import UserFactory, PostFactory, ReactionFactory, CommentFactory
+from general.factories import UserFactory, PostFactory, CommentFactory
 from rest_framework import status
-from general.models import Post, Reaction, Comment
+from general.models import Comment
 
 
 class CommentTestCase(APITestCase):
