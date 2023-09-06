@@ -7,6 +7,7 @@ from general.models import (
     Post,
     Comment,
     Reaction,
+    Feedback,
 )
 from django.contrib.auth.models import Group
 from general.filters import AuthorFilter, PostFilter
@@ -193,3 +194,14 @@ class ReactionModelAdmin(admin.ModelAdmin):
         AuthorFilter,
         ("value", ChoiceDropdownFilter),
     )
+
+
+class FeedbackModelAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "user",
+        "message",
+    )
+
+
+admin.site.register(Feedback, FeedbackModelAdmin)

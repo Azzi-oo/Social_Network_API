@@ -18,14 +18,16 @@ from general.api.serializers import (
     MessageListSerializer,
     ChatListSerializer,
     MessageSerializer,
+    FeedbackSerializer,
 )
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from general.models import User, Post, Comment, Reaction, Chat, Message
+from general.models import User, Post, Comment, Reaction, Chat, Message, Feedback
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import F, Case, When, CharField, Value, Subquery, OuterRef, Q
+from rest_framework import viewsets, status
 
 
 class UserViewSet(
@@ -194,3 +196,16 @@ class MessageViewSet(
         if instance.author != self.request.user:
             raise PermissionDenied("Вы не являетесь автором этого сообщения")
         instance.delete()
+
+
+class FeedbackViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=['GET'])
+    def custom_action(self, request):
+        return Response({'message': 'Custom action response'}, status=status.HTTP_200_OK)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

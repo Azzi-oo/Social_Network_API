@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from general.models import User, Post, Comment, Reaction, Chat, Message
+from general.models import User, Post, Comment, Reaction, Chat, Message, Feedback
 from django.db.models import Q
 
 
@@ -265,3 +265,9 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ("id", "author", "content", "chat", "created_at")
+
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ("id", "user", "message", "created_at")

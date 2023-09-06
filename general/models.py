@@ -106,3 +106,16 @@ class Message(models.Model):
         related_name="messages",
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name="feedback_messages",
+    )
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback #{self.id} by {self.user.username}"
