@@ -198,14 +198,17 @@ class MessageViewSet(
         instance.delete()
 
 
-class FeedbackViewSet(viewsets.ReadOnlyModelViewSet):
+class FeedbackViewSet(
+    CreateModelMixin,
+    GenericViewSet,
+):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
     permission_classes = [IsAuthenticated]
 
-    @action(detail=False, methods=['GET'])
-    def custom_action(self, request):
-        return Response({'message': 'Custom action response'}, status=status.HTTP_200_OK)
+    # @action(detail=False, methods=['GET'])
+    # def custom_action(self, request):
+    #     return Response({'message': 'Custom action response'}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

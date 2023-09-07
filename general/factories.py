@@ -1,6 +1,6 @@
 import factory
 from factory.django import DjangoModelFactory
-from general.models import User, Post, Comment, Reaction, Chat, Message
+from general.models import User, Post, Comment, Reaction, Chat, Message, Feedback
 
 
 class UserFactory(DjangoModelFactory):
@@ -56,3 +56,11 @@ class MessageFactory(DjangoModelFactory):
     content = factory.Faker("text")
     author = factory.SubFactory(UserFactory)
     chat = factory.LazyAttribute(lambda obj: ChatFactory(user_1=obj.author))
+
+
+class FeedbackFactory(DjangoModelFactory):
+    class Meta:
+        model = Feedback
+
+    message = factory.Faker("text")
+    user = factory.SubFactory(UserFactory)
